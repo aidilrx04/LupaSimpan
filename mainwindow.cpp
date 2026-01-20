@@ -1,23 +1,97 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-#include <vector>
-#include <exception>
-#include <iostream>
+#include <QDir>
+#include <QFile>
+#include <QIODevice>
+#include <QSaveFile>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 
 using namespace std;
 
-MainWindow::MainWindow(QWidget *parent)
+constexpr double LIMIT_DEFAULT{10};
+constexpr const char *SAVE_FILE{"SAVES"};
+
+constexpr const char *COLOR_OK{"#18FF18"};
+constexpr const char *COLOR_WARNING{"#FFFF18"};
+constexpr const char *COLOR_DANGER{"#FF1818"};
+
+const char *getColor(double const &balance)
+{
+    if (balance >= 8) {
+        return COLOR_OK;
+    } else if (balance <= 0) {
+        return COLOR_DANGER;
+    } else {
+        return COLOR_WARNING;
+    }
+}
+double MainWindow::calculateSpendings(QList<Spending> const &spendings)
+{
+    double sum{};
+    for (auto &spending : spendings) {
+        sum += spending.amount;
+    }
+
+    return sum;
+}
+
+void MainWindow::saveSpending(double amount)
+{
+    Spending spending;
+    spending.amount = amount;
+
+    bool create_success = sr.save(spending);
+
+    if (!create_success) {
+        qDebug() << "Failed to save spending into db";
+        return;
+    }
+
+    spendings.push_back(spending);
+
+    qDebug() << "Spending created";
+}
+void MainWindow::updateLabel()
+{
+    double spendingsTotal = calculateSpendings(spendings);
+    double balance = LIMIT_DEFAULT - spendingsTotal;
+
+    auto &todayLbl = ui->hariIniLabel;
+    auto &balanceLbl = ui->bakiLabel;
+
+    const char *color = getColor(balance);
+
+    todayLbl->setText(QString::number(spendingsTotal, 'f', 2));
+    //todayLbl->setStyle(nullptr);
+    todayLbl->setStyleSheet(QString("color: %1;").arg(color));
+
+    balanceLbl->setText(QString::number(balance, 'f', 2));
+    balanceLbl->setStyleSheet(QString("color: %1;").arg(color));
+}
+
+void MainWindow::loadSpendings()
+{
+    qDebug() << "LOADING VALUES FROM DB";
+
+    spendings = sr.getAll();
+
+    qDebug() << "SAVE LOADED";
+}
+
+MainWindow::MainWindow(SpendingRepository &sr, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow),
-    spendings { }
+    , ui(new Ui::MainWindow)
+    , sr(sr)
 {
     ui->setupUi(this);
 
-    ui->bakiLabel->setText("0");
-    ui->hariIniLabel->setText("0");
-}
+    loadSpendings();
 
+    updateLabel();
+}
 
 MainWindow::~MainWindow()
 {
@@ -30,29 +104,18 @@ void MainWindow::on_submitButton_clicked()
     bool convertSuccessful;
     double amount = amountText.toDouble(&convertSuccessful);
 
-    if(!convertSuccessful) {
-        cout << "Failed to convert amount to double\n";
+    if (!convertSuccessful) {
+        qDebug() << "Failed to convert amount to double\n";
         return;
     }
 
-    spendings.push_back(amount);
+    saveSpending(amount);
 
-    updateAmount();
+    updateLabel();
+    ui->amountEdit->setText("");
 }
 
-void MainWindow::updateAmount()
+void MainWindow::on_amountEdit_returnPressed()
 {
-    double hariIni{0};
-    double baki{10};
-
-    for(auto& amount : spendings) {
-        hariIni+= amount;
-    }
-
-    baki -= hariIni;
-
-
-    ui->hariIniLabel->setText(QString::number(hariIni, 'f', 2));
-    ui->bakiLabel->setText(QString::number(baki, 'f', 2));
+    on_submitButton_clicked();
 }
-

@@ -1,11 +1,22 @@
+#include "database.h"
 #include "mainwindow.h"
+#include "repositories/spendingrepository.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+
+
+    Database db;
+
+    db.initDb();
+
+    SpendingRepository sr;
+
+
+    MainWindow w(sr);
     w.show();
     return a.exec();
 }
