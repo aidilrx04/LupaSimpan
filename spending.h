@@ -7,9 +7,9 @@ class Spending
 {
 public:
     int id{-1};
-    double amount;
-    QString label;
-    QString date;
+    double amount{};
+    QString label{};
+    QString date{};
 
     Spending();
     Spending(int id, double amount, QString label, QString date);

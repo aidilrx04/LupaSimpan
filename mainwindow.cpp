@@ -40,8 +40,13 @@ double MainWindow::calculateSpendings(QList<Spending> const &spendings)
 
 void MainWindow::saveSpending(double amount)
 {
+    QDateTime dateToday = QDateTime::currentDateTime();
+
     Spending spending;
     spending.amount = amount;
+    spending.label = "Makan";
+    spending.date = dateToday.toString("yyyy-MM-dd HH:mm:ss");
+
 
     bool create_success = sr.save(spending);
 
