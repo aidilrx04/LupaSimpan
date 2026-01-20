@@ -6,8 +6,15 @@
 
 Spending::Spending() {}
 
-Spending::Spending(double amount)
-    : amount{amount}
+Spending::Spending(int id, double amount, QString label, QString date)
+    : id{id}
+    , amount{amount}
+    , label{label}
+    , date{date}
 {}
 
-
+Spending::Spending(double amount, QString label, QString date)
+    : amount{amount}
+    , label{label}
+    , date{date}
+{}

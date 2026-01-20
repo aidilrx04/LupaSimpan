@@ -6,9 +6,14 @@
 class Spending
 {
 public:
+    int id{-1};
     double amount;
+    QString label;
+    QString date;
+
     Spending();
-    Spending(double amount);
+    Spending(int id, double amount, QString label, QString date);
+    Spending(double amount, QString label, QString date);
 };
 
 #endif // SPENDING_H
