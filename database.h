@@ -5,18 +5,15 @@
 
 class Database
 {
-private:
-    QString path;
-    QString driver;
-
 public:
     Database();
 
-    QSqlDatabase &getDatabase();
-    void initDb();
+    void open();
+    void applyMigrations();
+    int getDbVersion();
 
 private:
-    QSqlDatabase database{};
+    QSqlDatabase database;
 };
 
 #endif // DATABASE_H

@@ -34,7 +34,7 @@ bool SpendingRepository::save(Spending const &spending)
     QSqlQuery q;
     bool prepare_success = q.prepare("INSERT INTO spendings(amount) VALUES (:amount)");
     if (!prepare_success) {
-        dQueryError(q);
+        dSqlError(q);
         return false;
     }
 
@@ -42,7 +42,7 @@ bool SpendingRepository::save(Spending const &spending)
 
     bool create_success = q.exec();
     if (!create_success) {
-        dQueryError(q);
+        dSqlError(q);
         return false;
     }
 

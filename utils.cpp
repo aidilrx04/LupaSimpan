@@ -2,12 +2,17 @@
 
 #include <QDebug>
 
-void dQueryError(const QString &message, const QSqlError &error)
+void dSqlError(const QString &message, const QSqlError &error)
 {
     qDebug() << message << error.text();
 }
 
-void dQueryError(const QSqlQuery &query)
+void dSqlError(const QSqlQuery &query)
 {
-    dQueryError("", query.lastError());
+    dSqlError("", query.lastError());
+}
+
+void dSqlError(const QSqlError &error)
+{
+    dSqlError("", error);
 }

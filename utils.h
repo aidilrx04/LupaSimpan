@@ -5,7 +5,8 @@
 #include <QSqlQuery>
 #include <QString>
 
-void dQueryError(QString const &message = "", QSqlError const &error = {});
-void dQueryError(QSqlQuery const &query);
+void dSqlError(QString const &message = "", QSqlError const &error = {});
+void dSqlError(QSqlQuery const &query);
+void dSqlError(QSqlError const &error);
 
 #endif // UTILS_H
