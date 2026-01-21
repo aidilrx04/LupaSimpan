@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>241</height>
+    <height>302</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,7 +21,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="layoutDirection">
-    <enum>Qt::LayoutDirection::RightToLeft</enum>
+    <enum>Qt::LayoutDirection::LeftToRight</enum>
    </property>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
@@ -29,7 +29,7 @@
       <x>0</x>
       <y>0</y>
       <width>501</width>
-      <height>241</height>
+      <height>301</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -72,43 +72,6 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QLabel" name="bakiTitleLabel">
-           <property name="font">
-            <font>
-             <family>Verdana</family>
-             <pointsize>18</pointsize>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Baki</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="bakiLabel">
-           <property name="font">
-            <font>
-             <family>Cascadia Code</family>
-             <pointsize>32</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
@@ -175,6 +138,43 @@
          </item>
         </layout>
        </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="bakiTitleLabel">
+           <property name="font">
+            <font>
+             <family>Verdana</family>
+             <pointsize>18</pointsize>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Baki</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="bakiLabel">
+           <property name="font">
+            <font>
+             <family>Cascadia Code</family>
+             <pointsize>32</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </item>
      <item>
@@ -192,115 +192,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
-       <property name="spacing">
-        <number>10</number>
-       </property>
-       <property name="sizeConstraint">
-        <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
-       </property>
-       <property name="leftMargin">
-        <number>10</number>
-       </property>
-       <property name="topMargin">
-        <number>10</number>
-       </property>
-       <property name="rightMargin">
-        <number>10</number>
-       </property>
-       <property name="bottomMargin">
-        <number>10</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="submitButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::DocumentSend"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="amountEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>Verdana</family>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">padding-left: 10px;
-padding-right: 10px;
-
-</string>
-         </property>
-         <property name="placeholderText">
-          <string>0.00</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="listButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset theme="QIcon::ThemeIcon::FormatJustifyLeft"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
    </widget>

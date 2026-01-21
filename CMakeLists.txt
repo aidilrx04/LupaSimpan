@@ -29,6 +29,16 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         repositories/spendingrepository.h repositories/spendingrepository.cpp
         utils.h
         utils.cpp
+        spendinglist.h spendinglist.cpp spendinglist.ui
+        bottominput.h bottominput.cpp bottominput.ui
+        spendingitem.h spendingitem.cpp spendingitem.ui
+
+
+
+
+
+
+
 
 
     )

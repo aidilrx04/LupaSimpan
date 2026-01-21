@@ -3,6 +3,10 @@
 
 #include "repositories/spendingrepository.h"
 
+#include "bottominput.h"
+#include "spendinglist.h"
+
+#include <QLabel>
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -19,21 +23,27 @@ public:
     MainWindow(SpendingRepository& sr, QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void on_submitButton_clicked();
 
-    void on_amountEdit_returnPressed();
 
 private:
+    //widgets
+    BottomInput *bottom_input;
+    SpendingList *spending_list;
+
     SpendingRepository &sr;
     Ui::MainWindow *ui;
 
     QList<Spending> spendings{};
+    bool show_list{false};
+
+    void initWidgets();
 
     void updateAmount();
     void loadSpendings();
     void updateLabel();
     double calculateSpendings(QList<Spending> const &spendings);
     void saveSpending(double amount);
+    void onAmountAdded(double amount);
+    void onToggleListClicked();
 };
 #endif // MAINWINDOW_H

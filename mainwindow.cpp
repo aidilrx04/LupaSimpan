@@ -6,8 +6,8 @@
 #include <QIODevice>
 #include <QSaveFile>
 #include <QSqlDatabase>
-#include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlQuery>
 
 using namespace std;
 
@@ -47,7 +47,6 @@ void MainWindow::saveSpending(double amount)
     spending.label = "Makan";
     spending.date = dateToday.toString("yyyy-MM-dd HH:mm:ss");
 
-
     bool create_success = sr.save(spending);
 
     if (!create_success) {
@@ -59,6 +58,29 @@ void MainWindow::saveSpending(double amount)
 
     qDebug() << "Spending created";
 }
+
+void MainWindow::onAmountAdded(double amount)
+{
+    saveSpending(amount);
+
+    updateLabel();
+    bottom_input->resetAmount();
+}
+
+void MainWindow::onToggleListClicked()
+{
+    show_list = !show_list;
+
+    if (show_list) {
+        spending_list->show();
+        ui->verticalLayout->parentWidget()->hide();
+        return;
+    }
+
+    spending_list->hide();
+    ui->verticalLayout->parentWidget()->show();
+}
+
 void MainWindow::updateLabel()
 {
     double spendingsTotal = calculateSpendings(spendings);
@@ -93,6 +115,10 @@ MainWindow::MainWindow(SpendingRepository &sr, QWidget *parent)
 {
     ui->setupUi(this);
 
+    initWidgets();
+
+    //ui->verticalLayout->parentWidget()->hide();
+
     loadSpendings();
 
     updateLabel();
@@ -103,24 +129,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_submitButton_clicked()
+void MainWindow::initWidgets()
 {
-    QString amountText = ui->amountEdit->text();
-    bool convertSuccessful;
-    double amount = amountText.toDouble(&convertSuccessful);
+    QWidget *container = ui->verticalLayout->parentWidget();
+    bottom_input = new BottomInput(container);
+    bottom_input->setMinimumHeight(70);
+    bottom_input->setMinimumWidth(500);
+    ui->verticalLayout->addWidget(bottom_input, 1, Qt::AlignmentFlag::AlignHCenter);
+    connect(bottom_input, &BottomInput::amountAdded, this, &MainWindow::onAmountAdded);
+    connect(bottom_input, &BottomInput::toggleListClicked, this, &MainWindow::onToggleListClicked);
 
-    if (!convertSuccessful) {
-        qDebug() << "Failed to convert amount to double\n";
-        return;
-    }
+    spending_list = new SpendingList(sr, this);
+    spending_list->hide();
+    spending_list->resize(this->size());
+    connect(spending_list->bottom_input,
+            &BottomInput::toggleListClicked,
+            this,
+            &MainWindow::onToggleListClicked);
 
-    saveSpending(amount);
-
-    updateLabel();
-    ui->amountEdit->setText("");
-}
-
-void MainWindow::on_amountEdit_returnPressed()
-{
-    on_submitButton_clicked();
 }
