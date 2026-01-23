@@ -3,14 +3,17 @@
 
 #include "../spending.h"
 
+#include <QDate>
+
 class SpendingRepository
 {
 public:
     SpendingRepository();
 
     QList<Spending> getAll();
+    QList<Spending> getAllByDate(QDate const& date);
 
-    bool save(Spending const& spending);
+    int save(Spending const& spending);
 };
 
 #endif // SPENDINGREPOSITORY_H

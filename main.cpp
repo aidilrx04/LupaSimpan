@@ -10,9 +10,7 @@ int main(int argc, char *argv[])
 
 
     Database db;
-
     db.open();
-
     db.applyMigrations();
 
     SpendingRepository sr;

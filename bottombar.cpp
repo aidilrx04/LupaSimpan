@@ -1,24 +1,24 @@
-#include "bottominput.h"
-#include "ui_bottominput.h"
+#include "bottombar.h"
+#include "ui_bottombar.h"
 
-BottomInput::BottomInput(QWidget *parent)
+BottomBar::BottomBar(QWidget *parent)
     : QFrame(parent)
-    , ui(new Ui::BottomInput)
+    , ui(new Ui::BottomBar)
 {
     ui->setupUi(this);
 }
 
-BottomInput::~BottomInput()
+BottomBar::~BottomBar()
 {
     delete ui;
 }
 
-void BottomInput::resetAmount()
+void BottomBar::resetAmount()
 {
     ui->amountEdit->setText("");
 }
 
-void BottomInput::on_submitButton_clicked()
+void BottomBar::on_submitButton_clicked()
 {
     QString value = ui->amountEdit->text();
     bool convertSuccessful{};
@@ -31,12 +31,12 @@ void BottomInput::on_submitButton_clicked()
     emit amountAdded(amount);
 }
 
-void BottomInput::on_amountEdit_returnPressed()
+void BottomBar::on_amountEdit_returnPressed()
 {
     on_submitButton_clicked();
 }
 
-void BottomInput::on_listButton_clicked()
+void BottomBar::on_listButton_clicked()
 {
     emit toggleListClicked();
 }

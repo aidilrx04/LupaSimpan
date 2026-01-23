@@ -1,18 +1,15 @@
-#include "spendinglist.h"
+#include "spendinglistpage.h"
 #include "spendingitem.h"
-#include "ui_spendinglist.h"
+#include "ui_spendinglistpage.h"
 
 QList<SpendingItem *> spending_items;
 
-SpendingList::SpendingList(SpendingRepository &sr, QWidget *parent)
+SpendingListPage::SpendingListPage(SpendingRepository &sr, QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::SpendingList)
+    , ui(new Ui::SpendingListPage)
     , sr{sr}
 {
     ui->setupUi(this);
-
-    bottom_input = new BottomInput(this);
-    ui->layout->addWidget(bottom_input);
 
     spendings = sr.getAll();
 
@@ -29,12 +26,20 @@ SpendingList::SpendingList(SpendingRepository &sr, QWidget *parent)
     }
 }
 
-SpendingList::~SpendingList()
+SpendingListPage::~SpendingListPage()
 {
     delete ui;
 }
 
-QList<SpendingItem *> SpendingList::createSpendingItems(QList<Spending> const &spendings)
+void SpendingListPage::onSpendingAdded(Spending spending)
+{
+    spendings.push_front(spending);
+    auto items = createSpendingItems({spending});
+    items.first()->setParent(ui->listLayout->parentWidget());
+    ui->listLayout->insertWidget(0, items.first());
+}
+
+QList<SpendingItem *> SpendingListPage::createSpendingItems(QList<Spending> const &spendings)
 {
     QList<SpendingItem *> items;
 

@@ -3,8 +3,9 @@
 
 #include "repositories/spendingrepository.h"
 
-#include "bottominput.h"
-#include "spendinglist.h"
+#include "bottombar.h"
+#include "mainpage.h"
+#include "spendinglistpage.h"
 
 #include <QLabel>
 #include <QMainWindow>
@@ -23,25 +24,22 @@ public:
     MainWindow(SpendingRepository& sr, QWidget *parent = nullptr);
     ~MainWindow();
 
-
+signals:
+    void spendingAdded(Spending spending);
 
 private:
     //widgets
-    BottomInput *bottom_input;
-    SpendingList *spending_list;
+    BottomBar *bottom_input;
+    SpendingListPage *spending_list;
+    MainPage* main_page;
 
     SpendingRepository &sr;
     Ui::MainWindow *ui;
 
-    QList<Spending> spendings{};
     bool show_list{false};
 
     void initWidgets();
 
-    void updateAmount();
-    void loadSpendings();
-    void updateLabel();
-    double calculateSpendings(QList<Spending> const &spendings);
     void saveSpending(double amount);
     void onAmountAdded(double amount);
     void onToggleListClicked();

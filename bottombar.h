@@ -1,19 +1,19 @@
-#ifndef BOTTOMINPUT_H
-#define BOTTOMINPUT_H
+#ifndef BOTTOMBAR_H
+#define BOTTOMBAR_H
 
 #include <QFrame>
 
 namespace Ui {
-class BottomInput;
+class BottomBar;
 }
 
-class BottomInput : public QFrame
+class BottomBar : public QFrame
 {
     Q_OBJECT
 
 public:
-    explicit BottomInput(QWidget *parent = nullptr);
-    ~BottomInput();
+    explicit BottomBar(QWidget *parent = nullptr);
+    ~BottomBar();
 
     void resetAmount();
 
@@ -29,7 +29,7 @@ private slots:
     void on_listButton_clicked();
 
 private:
-    Ui::BottomInput *ui;
+    Ui::BottomBar *ui;
 };
 
-#endif // BOTTOMINPUT_H
+#endif // BOTTOMBAR_H

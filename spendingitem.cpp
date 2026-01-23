@@ -13,7 +13,7 @@ SpendingItem::SpendingItem(Spending const& spending,QWidget *parent)
     auto *dateLabel = ui->dateLabel;
 
     labelLabel->setText(spending.label.isEmpty() ? "Unlabeled" : spending.label);
-    amountLabel->setText("-" + QString::number(spending.amount, 'f', 2));
+    amountLabel->setText(QString::number(spending.amount * -1, 'f', 2));
     dateLabel->setText(spending.date.isEmpty() ? "Unknown date" : spending.date);
 }
 
